@@ -20,5 +20,19 @@ public class Main {
 
             }
         }
+
+        final Class<?> myTestcls2 = TextCont.class;
+        SaveTo saveToAnnotation =  myTestcls2.getAnnotation(SaveTo.class);
+        for(Method method : myTestcls2.getDeclaredMethods()){
+            if(method.isAnnotationPresent(Save.class)){
+                try {
+                    method.invoke(myTestcls2.getConstructor().newInstance(), saveToAnnotation.path());
+                } catch (IllegalAccessException | NoSuchMethodException | InstantiationException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
     }
 }
